@@ -1,13 +1,17 @@
-# NOTE: This file is for HashiCorp specific licensing automation and can be deleted after creating a new repo with this template.
 schema_version = 1
 
 project {
-  license        = "MPL-2.0"
-  copyright_year = 2021
+  license          = "MPL-2.0"
+  copyright_holder = "Scott Brown"
+  copyright_year   = 2026
 
   header_ignore = [
-    # internal catalog metadata (prose)
-    "META.d/**/*.yaml",
+    # derived from terraform-provider-scaffolding-framework; these carry the
+    # upstream copyright notice alongside this project's and are maintained by hand
+    "main.go",
+    "internal/provider/provider.go",
+    "internal/provider/provider_test.go",
+    "tools/tools.go",
 
     # examples used within documentation (prose)
     "examples/**",

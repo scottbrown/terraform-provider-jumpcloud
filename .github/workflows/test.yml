@@ -78,5 +78,7 @@ jobs:
       - run: go mod download
       - env:
           TF_ACC: "1"
-        run: go test -v -cover ./internal/provider/
+          JUMPCLOUD_API_KEY: ${{ secrets.JUMPCLOUD_API_KEY }}
+          JUMPCLOUD_ORG_ID: ${{ secrets.JUMPCLOUD_ORG_ID }}
+        run: go test -v -cover ./...
         timeout-minutes: 10

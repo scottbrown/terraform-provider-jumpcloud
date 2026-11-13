@@ -1,0 +1,26 @@
+---
+page_title: "JumpCloud Provider"
+subcategory: ""
+description: |-
+  Terraform provider for managing JumpCloud resources.
+---
+
+# JumpCloud Provider
+
+The JumpCloud provider allows you to manage [JumpCloud](https://jumpcloud.com) resources using Terraform. It interacts with the JumpCloud v2 API to manage user groups, approval flows, commands, and device policies.
+
+## Authentication
+
+The provider requires a JumpCloud API key. If you are using a multi-tenant API key, the organization ID is also required.
+
+Credentials can be provided via provider configuration or environment variables:
+
+- `JUMPCLOUD_API_KEY` — API key for authentication
+- `JUMPCLOUD_ORG_ID` — Organization ID (required for multi-tenant keys)
+- `JUMPCLOUD_BASE_URL` — Override the API base URL (defaults to `https://console.jumpcloud.com/api/v2`)
+
+## Example Usage
+
+{{ tffile "examples/provider/provider.tf" }}
+
+{{ .SchemaMarkdown | trimspace }}

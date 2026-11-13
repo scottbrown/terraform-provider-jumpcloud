@@ -1,0 +1,59 @@
+# Copyright Scott Brown 2026
+# SPDX-License-Identifier: MPL-2.0
+
+# Developer convenience wrapper. CI uses the GNUmakefile; these tasks mirror
+# its targets and add a local-install task for testing the provider with
+# Terraform without a dev_overrides block.
+version: "3"
+
+vars:
+  HOSTNAME: registry.terraform.io
+  NAMESPACE: scottbrown
+  NAME: jumpcloud
+  BINARY: terraform-provider-{{.NAME}}
+  VERSION: 0.1.0
+  OS_ARCH:
+    sh: echo "$(go env GOOS)_$(go env GOARCH)"
+
+tasks:
+  default:
+    deps: [install]
+
+  build:
+    desc: Compile the provider binary
+    cmds:
+      - go build -o {{.BINARY}}
+
+  install:
+    desc: Build and install to ~/.terraform.d/plugins for local testing
+    deps: [build]
+    cmds:
+      - mkdir -p ~/.terraform.d/plugins/{{.HOSTNAME}}/{{.NAMESPACE}}/{{.NAME}}/{{.VERSION}}/{{.OS_ARCH}}
+      - mv {{.BINARY}} ~/.terraform.d/plugins/{{.HOSTNAME}}/{{.NAMESPACE}}/{{.NAME}}/{{.VERSION}}/{{.OS_ARCH}}
+
+  test:
+    desc: Run unit tests
+    cmds:
+      - go test -v -cover -timeout=120s -parallel=10 ./...
+
+  testacc:
+    desc: Run acceptance tests (requires JUMPCLOUD_API_KEY)
+    cmds:
+      - go test -v -cover -timeout 120m ./... {{.CLI_ARGS}}
+    env:
+      TF_ACC: "1"
+
+  generate:
+    desc: Add license headers, format examples, and regenerate docs/
+    cmds:
+      - cd tools && go generate ./...
+
+  fmt:
+    desc: Format Go source files
+    cmds:
+      - gofmt -s -w -e .
+
+  lint:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run
