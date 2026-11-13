@@ -1,5 +1,6 @@
+// Copyright IBM Corp. 2021, 2026
 // Copyright (c) 2026 Scott Brown
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MPL-2.0
 
 //go:build generate
 

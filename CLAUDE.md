@@ -67,5 +67,5 @@ Provider attributes (`api_key`, `org_id`, `base_url`) resolve in order: explicit
 
 ```go
 // Copyright (c) 2026 Scott Brown
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MPL-2.0
 ```

@@ -1,5 +1,5 @@
 # Copyright Scott Brown 2026
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 
 # Developer convenience wrapper. CI uses the GNUmakefile; these tasks mirror
 # its targets and add a local-install task for testing the provider with
